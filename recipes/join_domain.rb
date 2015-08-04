@@ -26,9 +26,9 @@ rescue
 end
 
 if bind_credentials
-  auth_string = "#{bind_credentials['username']}@#{node['sssd_ad']['realm']}%'#{bind_credentials['password']}'"
+  auth_string = "#{bind_credentials['username']}@#{node['samba']['options']['realm']}%'#{bind_credentials['password']}'"
 
-  execute "join #{node['sssd_ad']['realm']} domain" do
+  execute "join #{node['samba']['options']['realm']} domain" do
     command "net ads join -U #{auth_string}"
     sensitive true
     only_if "net ads status -U #{auth_string} 2>&1 | grep 'No machine account'"

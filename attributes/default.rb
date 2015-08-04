@@ -16,8 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['sssd_ad']['workgroup'] = 'CONTOSO'
-default['sssd_ad']['realm'] = 'EXAMPLE.CONTOSO.COM'
 default['sssd_ad']['dc'] = 'dc.example.contoso.com'
 default['sssd_ad']['use_ntp'] = true
 default['sssd_ad']['join_domain'] = false
@@ -26,11 +24,11 @@ default['sssd_ad']['vault_name'] = 'vault'
 default['sssd_ad']['vault_item'] = 'sssd_ad'
 
 default['samba']['enable_users_search'] = false
-default['samba']['workgroup'] = node['sssd_ad']['workgroup']
+default['samba']['workgroup'] = 'CONTOSO'
 default['samba']['security'] = 'ads'
 default['samba']['options'] = {
   'client signing' => 'yes',
   'client use spnego' => 'yes',
   'kerberos method' => 'secrets and keytab',
-  'realm' => node['sssd_ad']['realm'].upcase
+  'realm' => 'EXAMPLE.CONTOSO.COM'
 }
