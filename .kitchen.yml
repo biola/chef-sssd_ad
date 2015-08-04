@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+  vm_hostname: 'sssd-test'
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt::default]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[sssd_ad::default]
+    attributes:
+      dev_mode: true

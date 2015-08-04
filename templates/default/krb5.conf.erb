@@ -1,0 +1,17 @@
+[libdefaults]
+  default_realm = <%= node['sssd_ad']['realm'].upcase %>
+  ticket_lifetime = 24h
+  renew_lifetime = 7d
+
+[realms]
+  <%= node['sssd_ad']['realm'].upcase %> = {
+    kdc = <%= node['sssd_ad']['dc'] %>
+    admin_server = <%= node['sssd_ad']['dc'] %>
+  }
+
+[domain_realm]
+  .<%= node['sssd_ad']['realm'].downcase %> = <%= node['sssd_ad']['realm'].upcase %>
+  <%= node['sssd_ad']['realm'].downcase %> = <%= node['sssd_ad']['realm'].upcase %>
+
+[logging]
+  Default = FILE:/var/log/krb5.log
