@@ -18,16 +18,22 @@
 
 include_recipe 'chef-vault::default'
 
-# rubocop:disable Metrics/LineLength
 begin
-  bind_credentials = chef_vault_item(node['sssd_ad']['vault_name'], node['sssd_ad']['vault_item'])
+  bind_credentials = chef_vault_item(
+    node['sssd_ad']['vault_name'],
+    node['sssd_ad']['vault_item']
+  )
 rescue
-  Chef::Log.warn('Unable to load credentials from chef-vault item. Skipping domain join.')
+  Chef::Log.warn(
+    'Unable to load credentials from chef-vault item. Skipping domain join.'
+  )
 end
 
 if bind_credentials
   execute "join #{node['samba']['options']['realm']} domain" do
-    command "net ads join -U #{bind_credentials['username']}@#{node['samba']['options']['realm']}%'#{bind_credentials['password']}'"
+    command "net ads join -U #{bind_credentials['username']}@"\
+            "#{node['samba']['options']['realm']}%"\
+            "'#{bind_credentials['password']}'"
     sensitive true
     not_if "getent group 'Domain Admins'"
     action :run

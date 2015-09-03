@@ -10,6 +10,7 @@ Tested on Ubuntu 14.04.
 
 Attributes
 -----------
+- `['sssd_ad']['access_filter']` - optional `ad_access_filter` for the joined domain, e.g. "`(&(sAMAccountName=jo*)(unixHomeDirectory=*))`"
 - `['sssd_ad']['dc']` - the FQDN of the primary domain controller
 - `['sssd_ad']['use_ntp']` - configure NTP to sync with the primary domain controller; defaults to true
 - `['sssd_ad']['join_domain']` - join the system to the domain (requires credentials in a chef-vault item); defaults to false

@@ -16,6 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+default['sssd_ad']['access_filter'] = nil
 default['sssd_ad']['dc'] = 'dc.example.contoso.com'
 default['sssd_ad']['use_ntp'] = true
 default['sssd_ad']['join_domain'] = false
