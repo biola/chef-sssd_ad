@@ -1,7 +1,6 @@
 ---
 driver:
   name: vagrant
-  vm_hostname: 'sssd-test'
 
 provisioner:
   name: chef_zero

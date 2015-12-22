@@ -5,9 +5,9 @@ domains = <%= node['samba']['options']['realm'].upcase %>
 
 [domain/<%= node['samba']['options']['realm'].upcase %>]
 id_provider = ad
-access_provider = ad<% if node['sssd_ad']['access_filter'] -%>
-ad_access_filter = <%= node['sssd_ad']['access_filter'] %><% end -%><% if node['sssd_ad']['cache_credentials'] -%>
-cache_credentials = true<% end -%>
+access_provider = ad
+<% if node['sssd_ad']['access_filter'] -%>ad_access_filter = <%= node['sssd_ad']['access_filter'] %><% end -%>
+<% if node['sssd_ad']['cache_credentials'] -%>cache_credentials = true<% end -%>
 
 # Use /home/DOMAIN-FQDN/user as $HOME
-override_homedir = /home/%d/%u
+override_homedir = <%= node['sssd_ad']['override_homedir'] %>
