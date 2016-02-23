@@ -10,4 +10,7 @@ access_provider = ad
 <% if node['sssd_ad']['cache_credentials'] -%>cache_credentials = true<% end -%>
 
 # Use /home/DOMAIN-FQDN/user as $HOME
-override_homedir = <%= node['sssd_ad']['override_homedir'] %>
+override_homedir = <%= node['sssd_ad']['override_homedir'] %><% if node['sssd_ad']['nss_filter_users'] -%>
+
+[nss]
+filter_users = <%= node['sssd_ad']['nss_filter_users'] %><% end -%>

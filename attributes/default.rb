@@ -19,6 +19,7 @@
 default['sssd_ad']['access_filter'] = nil
 default['sssd_ad']['cache_credentials'] = false
 default['sssd_ad']['dc'] = 'dc.example.contoso.com'
+default['sssd_ad']['nss_filter_users'] = false
 default['sssd_ad']['override_homedir'] = '/home/%d/%u'
 default['sssd_ad']['use_ntp'] = true
 default['sssd_ad']['join_domain'] = false

@@ -11,6 +11,7 @@ Tested on Ubuntu 14.04.
 Attributes
 -----------
 - `['sssd_ad']['access_filter']` - optional `ad_access_filter` for the joined domain, e.g. "`(&(sAMAccountName=jo*)(unixHomeDirectory=*))`"
+- `['sssd_ad']['nss_filter_users']` - optional comma separated string of users to be excluded from the AD search; see `sssd.conf` man page
 - `['sssd_ad']['cache_credentials']` - boolean to enable SSSD credential caching; defaults to false
 - `['sssd_ad']['dc']` - the FQDN of the primary domain controller
 - `['sssd_ad']['use_ntp']` - configure NTP to sync with the primary domain controller; defaults to true
