@@ -43,10 +43,10 @@ template '/etc/sssd/sssd.conf' do
   notifies :restart, 'service[sssd]'
 end
 
+# Join the domain if specified
+include_recipe 'sssd_ad::join_domain' if node['sssd_ad']['join_domain']
+
 service 'sssd' do
   supports restart: true
   action [:start, :enable]
 end
-
-# Join the domain if specified
-include_recipe 'sssd_ad::join_domain' if node['sssd_ad']['join_domain']
