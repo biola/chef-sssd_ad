@@ -20,8 +20,18 @@
 package 'krb5-user'
 package 'sssd'
 
-# Install and configure Samba (see attributes file for details)
-include_recipe 'samba::server'
+# Install and configure Samba
+samba_server 'default' do
+  security 'ADS'
+  kerberos_method 'secrets and keytab'
+  workgroup node['sssd_ad']['workgroup']
+  realm node['sssd_ad']['realm']
+  enable_users_search false
+  options(
+    'client signing' => 'yes',
+    'client use spnego' => 'yes'
+  )
+end
 
 # Configure Kerberos
 template '/etc/krb5.conf' do
@@ -34,19 +44,24 @@ end
 # Configure NTP
 include_recipe 'sssd_ad::ntp' if node['sssd_ad']['use_ntp']
 
+# Join the domain if specified
+include_recipe 'sssd_ad::join_domain' if node['sssd_ad']['join_domain']
+
 # Install sssd config
 template '/etc/sssd/sssd.conf' do
   source 'sssd.conf.erb'
   owner 'root'
   group 'root'
   mode '0600'
-  notifies :restart, 'service[sssd]'
+  notifies :restart, 'service[sssd]' if ::File.exist?('/etc/krb5.keytab')
 end
-
-# Join the domain if specified
-include_recipe 'sssd_ad::join_domain' if node['sssd_ad']['join_domain']
 
 service 'sssd' do
   supports restart: true
-  action [:start, :enable]
+  if node['sssd_ad']['join_domain']
+    action :enable
+    subscribes :start, "execute[join #{node['sssd_ad']['realm']} domain]"
+  else
+    action [:start, :enable]
+  end
 end

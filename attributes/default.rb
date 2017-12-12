@@ -27,12 +27,5 @@ default['sssd_ad']['join_domain'] = false
 default['sssd_ad']['vault_name'] = 'vault'
 default['sssd_ad']['vault_item'] = 'sssd_ad'
 
-default['samba']['enable_users_search'] = false
-default['samba']['workgroup'] = 'CONTOSO'
-default['samba']['security'] = 'ads'
-default['samba']['options'] = {
-  'client signing' => 'yes',
-  'client use spnego' => 'yes',
-  'kerberos method' => 'secrets and keytab',
-  'realm' => 'EXAMPLE.CONTOSO.COM'
-}
+default['sssd_ad']['workgroup'] = 'CONTOSO'
+default['sssd_ad']['realm'] = 'EXAMPLE.CONTOSO.COM'
