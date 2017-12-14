@@ -53,13 +53,14 @@ template '/etc/sssd/sssd.conf' do
   owner 'root'
   group 'root'
   mode '0600'
+  # Restart the sssd service only if the server is bound to a domain
   notifies :restart, 'service[sssd]' if ::File.exist?('/etc/krb5.keytab')
 end
 
 service 'sssd' do
   supports restart: true
   if node['sssd_ad']['join_domain']
-    action :enable
+    action :enable # delay service start until binding
     subscribes :start, "execute[join #{node['sssd_ad']['realm']} domain]"
   else
     action [:start, :enable]

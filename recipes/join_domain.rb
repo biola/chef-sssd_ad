@@ -36,7 +36,7 @@ if bind_credentials
             "'#{bind_credentials['password']}'"
     sensitive true
     not_if "getent group 'Domain Admins'"
-    action :nothing
+    action :nothing # delay binding to allow Samba cookbook to configure /etc/samba/smb.conf
     subscribes :run, 'template[/etc/samba/smb.conf]'
   end
 end

@@ -6,7 +6,7 @@ IMPORTANT: This cookbook assumes the system's FQDN (e.g. 'server.example.contoso
 
 Platforms
 ---------
-Tested on Ubuntu 14.04.
+Tested on Ubuntu 14.04 and Ubuntu 16.04.
 
 Attributes
 -----------
@@ -18,7 +18,9 @@ Attributes
 - `['sssd_ad']['join_domain']` - join the system to the domain (requires credentials in a chef-vault item); defaults to false
 - `['sssd_ad']['vault_name']` - name of the data bag containing domain credentials
 - `['sssd_ad']['vault_item']` - name of the chef-vault item containing domain credentials
+- `['sssd_ad']['workgroup']` - name of the default domain workgroup
+- `['sssd_ad']['realm']` - the domain realm URL
 
 Usage
 -----
-Add the `sssd_ad::default` recipe to the node's run list, and set the `['samba']['workgroup']`, `['samba']['options']['realm']`, and `['sssd_ad']['dc']` attributes. If the system should be joined to the domain automatically, set the `join_domain` attribute to true and create a chef-vault item containing AD credentials that have appropriate permissions.
+Add the `sssd_ad::default` recipe to the node's run list, and set the `['sssd_ad']['workgroup']`, `['sssd_ad']['realm']`, and `['sssd_ad']['dc']` attributes. If the system should be joined to the domain automatically, set the `join_domain` attribute to true and create a chef-vault item containing AD credentials that have appropriate permissions.
