@@ -7,5 +7,5 @@ long_description 'Installs/Configures SSSD for AD integration'
 supports 'ubuntu'
 version '0.7.0'
 
-depends 'chef-vault', '~> 1.0'
-depends 'samba', '~> 0.12'
+depends 'chef-vault', '~> 3.0'
+depends 'samba', '~> 1.1'

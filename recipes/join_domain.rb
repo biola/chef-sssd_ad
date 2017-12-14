@@ -30,12 +30,13 @@ rescue
 end
 
 if bind_credentials
-  execute "join #{node['samba']['options']['realm']} domain" do
+  execute "join #{node['sssd_ad']['realm']} domain" do
     command "net ads join -U #{bind_credentials['username']}@"\
-            "#{node['samba']['options']['realm']}%"\
+            "#{node['sssd_ad']['realm']}%"\
             "'#{bind_credentials['password']}'"
     sensitive true
     not_if "getent group 'Domain Admins'"
-    action :run
+    action :nothing # delay binding to allow Samba cookbook to configure /etc/samba/smb.conf
+    subscribes :run, 'template[/etc/samba/smb.conf]'
   end
 end

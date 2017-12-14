@@ -5,5 +5,3 @@ group :integration do
 end
 
 metadata
-
-cookbook 'samba', github: 'jtimberman/samba-cookbook'

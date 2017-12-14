@@ -1,9 +1,9 @@
 [sssd]
 services = nss, pam
 config_file_version = 2
-domains = <%= node['samba']['options']['realm'].upcase %>
+domains = <%= node['sssd_ad']['realm'].upcase %>
 
-[domain/<%= node['samba']['options']['realm'].upcase %>]
+[domain/<%= node['sssd_ad']['realm'].upcase %>]
 id_provider = ad
 access_provider = ad
 <% if node['sssd_ad']['access_filter'] -%>ad_access_filter = <%= node['sssd_ad']['access_filter'] %><% end -%>

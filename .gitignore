@@ -15,6 +15,3 @@ bin/*
 .kitchen/
 .kitchen.local.yml
 test/integration/data_bags/vault/*
-
-*.sublime-project
-*.sublime-workspace
